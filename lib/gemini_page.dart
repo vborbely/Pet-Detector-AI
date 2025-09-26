@@ -1,4 +1,5 @@
 // lib/gemini_page.dart
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'gemini_service.dart'; // Import the new service
@@ -63,10 +64,7 @@ class _MyGeminiPageState extends State<MyGeminiPage> {
             const SizedBox(height: 16),
             TextField(
               controller: _promptController,
-              decoration: const InputDecoration(
-                hintText: 'Enter image URL',
-                border: OutlineInputBorder(),
-              ),
+              decoration: const InputDecoration(hintText: 'Enter image URL', border: OutlineInputBorder()),
               maxLines: 3,
             ),
             const SizedBox(height: 16),
@@ -76,6 +74,9 @@ class _MyGeminiPageState extends State<MyGeminiPage> {
                   ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2))
                   : const Text('Ask Gemini'),
             ),
+            const SizedBox(height: 24),
+            if (_promptController.text.trim().startsWith('http'))
+              CachedNetworkImage(imageUrl: _promptController.text.trim(), height: 200, fit: BoxFit.fitHeight),
             const SizedBox(height: 24),
             const Text('Gemini Analysis', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
@@ -95,8 +96,8 @@ class _MyGeminiPageState extends State<MyGeminiPage> {
                         ),
                       )
                     : SingleChildScrollView(
-                  child: SelectableText(
-                    _geminiResponse.isEmpty ? 'Gemini\'s analysis will appear here' : _geminiResponse,
+                        child: SelectableText(
+                          _geminiResponse.isEmpty ? 'Gemini\'s analysis will appear here' : _geminiResponse,
                           style: const TextStyle(fontSize: 16),
                         ),
                       ),
