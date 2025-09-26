@@ -1,0 +1,16 @@
+{
+  "flutter": {
+    "platforms": {
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "vibe-flutter-ai-sidekick",
+          "configurations": {
+            "android": "1:196481842697:android:f405054f84809c0bd002d8",
+            "ios": "1:196481842697:ios:08b54da6edbe0f62d002d8",
+            "web": "1:196481842697:web:dd9cab615321773ad002d8"
+          }
+        }
+      }
+    }
+  }
+}
