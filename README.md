@@ -1,16 +1,14 @@
-# sidekick_ai_webapp
+# Pet Detector App
 
-A new Flutter project.
+This application was created during FlutterCon 2025 Berlin conference.
 
-## Getting Started
+## Description
 
-This project is a starting point for a Flutter application.
+Gemini analysis the provided URL image if there is a Pet on it and if yes, what type of pet it is.
 
-A few resources to get you started if this is your first Flutter project:
+Provides pet data:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- fur color
+- fur size
+- breed
+- age
