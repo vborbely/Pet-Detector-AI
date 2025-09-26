@@ -17,9 +17,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Gemini AI Showcase',
-      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple), useMaterial3: true),
-      home: const MyGeminiPage(title: 'Gemini AI Showcase'),
+      debugShowCheckedModeBanner: false,
+      title: 'Gemini AI Pet Analyzer',
+      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.green), useMaterial3: true),
+      home: const MyGeminiPage(title: 'Gemini AI Pet Analyzer'),
     );
   }
 }

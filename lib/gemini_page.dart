@@ -20,14 +20,23 @@ class _MyGeminiPageState extends State<MyGeminiPage> {
 
   // This method now calls our service
   Future<void> _callGeminiAI() async {
-    if (_promptController.text.trim().isEmpty) return;
+    final prompt = _promptController.text.trim();
+    if (prompt.isEmpty) return;
 
     setState(() {
       _isLoading = true;
       _geminiResponse = '';
     });
 
-    final response = await _geminiService.generateContent(_promptController.text.trim());
+    String response;
+    // Simple check to see if the prompt is a URL for a JPEG image
+    if (prompt.startsWith('http')) {
+      // if (prompt.startsWith('http') && (prompt.endsWith('.jpg') || prompt.endsWith('.jpeg'))) {
+      response = await _geminiService.detectPet(prompt);
+      // response = await _geminiService.describeImage(prompt);
+    } else {
+      response = await _geminiService.getAsciiArt(prompt);
+    }
 
     setState(() {
       _isLoading = false;
@@ -50,12 +59,12 @@ class _MyGeminiPageState extends State<MyGeminiPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text('Ask Gemini AI anything:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            const Text('Paste an URL about a Pet image', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 16),
             TextField(
               controller: _promptController,
               decoration: const InputDecoration(
-                hintText: 'Enter your question or prompt...',
+                hintText: 'Enter image URL',
                 border: OutlineInputBorder(),
               ),
               maxLines: 3,
@@ -68,7 +77,7 @@ class _MyGeminiPageState extends State<MyGeminiPage> {
                   : const Text('Ask Gemini'),
             ),
             const SizedBox(height: 24),
-            const Text('Gemini Response:', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            const Text('Gemini Analysis', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
             Expanded(
               child: Container(
@@ -86,8 +95,8 @@ class _MyGeminiPageState extends State<MyGeminiPage> {
                         ),
                       )
                     : SingleChildScrollView(
-                        child: Text(
-                          _geminiResponse.isEmpty ? 'Ask a question to see Gemini\'s response here!' : _geminiResponse,
+                  child: SelectableText(
+                    _geminiResponse.isEmpty ? 'Gemini\'s analysis will appear here' : _geminiResponse,
                           style: const TextStyle(fontSize: 16),
                         ),
                       ),
